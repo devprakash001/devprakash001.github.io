@@ -6,7 +6,8 @@ let winsX = 0;
 let winsO = 0;
 let ties = 0;
 
-// Array of winning patterns
+const turnMessage = document.getElementById("turnMessage");
+
 const winPatterns = [
   [0, 1, 2],
   [3, 4, 5],
@@ -27,10 +28,15 @@ function checkWinner() {
       cells[a].dataset.cell === cells[b].dataset.cell &&
       cells[a].dataset.cell === cells[c].dataset.cell
     ) {
+      // Highlight winning cells
+      cells[a].classList.add("winner");
+      cells[b].classList.add("winner");
+      cells[c].classList.add("winner");
       return cells[a].dataset.cell;
     }
   }
 
+  // Check for tie
   if ([...cells].every((cell) => cell.dataset.cell !== "")) {
     return "tie";
   }
@@ -38,7 +44,7 @@ function checkWinner() {
   return null;
 }
 
-// Function to handle cell click event
+// Function to handle cell click
 function handleCellClick() {
   if (isGameover || this.dataset.cell !== "") return;
 
@@ -68,12 +74,13 @@ function handleCellClick() {
         resetBoard();
       }, 100);
     }
+  } else {
+    currentPlayer = currentPlayer === "X" ? "O" : "X";  // Switch player
+    updateTurnMessage();  // Update the turn message
   }
-
-  currentPlayer = currentPlayer === "X" ? "O" : "X";
 }
 
-// Function to update the score
+// Function to update score
 function updateScore() {
   document.getElementById("winsX").innerText = winsX;
   document.getElementById("winsO").innerText = winsO;
@@ -89,6 +96,8 @@ function resetBoard() {
   });
 
   isGameover = false;
+  currentPlayer = "X";  // Reset to X
+  updateTurnMessage();  // Reset turn message to Player X
 }
 
 // Function to handle replay button click
@@ -105,10 +114,16 @@ function handleRestartClick() {
   updateScore();
 }
 
+// Function to update the current turn message
+function updateTurnMessage() {
+  turnMessage.innerText = `Turn: Player ${currentPlayer}`;
+}
+
 // Add event listeners
 cells.forEach((cell) => cell.addEventListener("click", handleCellClick));
 document.getElementById("replay").addEventListener("click", handleReplayClick);
 document.getElementById("restart").addEventListener("click", handleRestartClick);
 
-// Initialize the score
+// Initialize the score and turn message
 updateScore();
+updateTurnMessage();
