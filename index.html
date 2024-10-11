@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +14,7 @@
     <p>Wins O: <span id="winsO">0</span></p>
     <p>Ties: <span id="ties">0</span></p>
   </div>
+
   <div class="board" id="board">
     <div class="cell" data-cell=""></div>
     <div class="cell" data-cell=""></div>
@@ -26,11 +26,15 @@
     <div class="cell" data-cell=""></div>
     <div class="cell" data-cell=""></div>
   </div>
+
+  <!-- Display whose turn it is -->
+  <p id="turnMessage">Turn: Player X</p>
+
   <div class="buttons">
-    <button id="replay">Replay</button>
-    <button id="restart">Restart</button>
+    <button id="replay" title="Replay Game">&#x21bb; Replay</button>
+    <button id="restart" title="Restart Score">&#x21bb; Restart</button>
   </div>
+
   <script src="script.js"></script>
 </body>
-
 </html>
